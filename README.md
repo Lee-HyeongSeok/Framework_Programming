@@ -16,7 +16,8 @@
   - Maven의 기본 정의
   - Maven의 프로젝트 관리 방법
   - Maven의 빌드 자동화 기능
-  - [2주차 강의 내용 정리](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/2%EC%A3%BC%EC%B0%A8/Maven%EC%9D%B4%EB%9E%80.md)
+  - [📃 2주차 강의 내용 정리](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/2%EC%A3%BC%EC%B0%A8/Maven%EC%9D%B4%EB%9E%80.md)
+  - [📃 POJO, DI, AOP 정리](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/2%EC%A3%BC%EC%B0%A8/POJO%2C%20DI%2C%20AOP.md)
 
 <br> 
 
