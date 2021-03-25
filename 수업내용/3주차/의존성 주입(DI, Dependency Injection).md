@@ -4,13 +4,13 @@
 
 <br> 
 
-### **📌 Dependency**
+### **📌 의존성(Dependency)**
 
 - 객체 간의 **의존 관계**를 의미한다.
 
 <br>
 
-### **📌 Dependency Injection**
+### **📌 의존성 주입(DI, Dependency Injection)**
 
 > **인터페이스 기반의 컴포넌트화**
 
@@ -122,16 +122,33 @@
 2. **Annotation 기반 설정**
 
    - **@Component Annotation**이 부여된 클래스를 DI Container가 자동으로 등록
+
    - 소스 코드에 **@애노테이션** 형태로 표현
+
    - 클래스, 메서드, 필드 선언부에 표현하여 특정 기능이 적용되었음을 알려준다.
-   - **Annotation 설정 2가지**
+
+   - xml 파일에 이미 등록된 빈들의 Annotation 기능을 적용한다.
+
+   - **Annotation 설정**에는 2가지 방법이 있다.
+
+     1. < context:**annotation-config** />
+     2. < context:**component-scan** />
+
+   - **📃 Annotation 종류**
+
      - **✅ @Autowired**
        - **Container**가 Bean과 다른 Bean과의 의존성을 자동으로 연결하도록 하는 수단
-       - 해당 타입의 컴포넌트를 찾아 그 인스턴스를 주입시켜준다.
-       - < context:annotation-config /> 설정이 필요<br> **(context:component-scan 설정 시 생략 가능하다.)**
-       - xml 파일에 이미 등록된 빈들의 Annotation 기능 적용 
+
        - **유사한 기능** : @Inject, @Resource
+
+       - 해당 타입의 컴포넌트를 찾아 그 인스턴스를 주입시켜준다.
+
+       - < context:annotation-config /> 설정이 필요**(context:component-scan 설정 시 생략 가능하다.)**
+
+         <br>
+
      - **✅ @Component**
+       
        - **Container**가 주입을 위한 인스턴스를 설정하는 수단
        - **@Component**를 클래스 앞에 선언 시 컨테이너가 찾아서 관리하고<br> **@Autowired**가 붙은 인스턴스 변수에 주입시켜준다.
        - <context:component-scan base-package="패키지 이름"/> 선언 : <br> **@Component** 애노테이션이 붙은 클래스를 자동으로 빈으로 등록한다.
@@ -140,13 +157,188 @@
          - **@Controller** : <u>Presentation Layer</u> 스프링 MVC용 Annotation
          - **@Service** : <u>Business Logic Layer</u> Service용 Annotation
          - **@Repository** : <u>Data Access Layer</u>의 DAO용 Annotation
-         - **@Configuration** : Bean정의를 자바 프로그램에서 실행하는 JavaConfig용 Annotation
+         - **@Configuration** : Bean정의를 자바 프로그램에서 실행하는 JavaConfig용 Annotation<br> <br> 
+
+     - **✅ 🖇 < context:annotation-config >** 설정 시 **ApplicationContext.xml** 설정 **
+
+       ```xml
+       <bean id="studentDAO" class="org.kpu.di.persistence.StudentDAOImpl"></bean>
+       <bean id="studentService" class="org.kpu.di.service.StudentServiceImpl"></bean>
+       <context:annotation-config/>
+       ```
+
+       ```java
+       // <context:annotation-config> 설정 시 StudentDAOImpl.java 설정
+       
+       package org.kpu.di.persistence;
+       import java.util.HashMap;
+       import java.util.Map;
+       import org.kpu.di.domain.StudentVO;
+       
+       public class StudentDAOImpl implements StudentDAO{
+           private Map<String, StudentVO> storage = new HashMap<String, StudentVO>();
+           
+           public StudentVO read(String id) throws Exception{
+               return storage.get(id);
+           }
+           public void add(StudentVO student) throws Exception{
+               storage.put(student.getId(), student);
+           }
+       }
+       ```
+
+       ```java
+       // <context:annotation-config> 설정 시 StudentServiceImpl.java 설정
+       
+       package org.kpu.di.service;
+       import org.kpu.di.domain.StudentVO;
+       import org.kpu.di.persistence.StudentDAO;
+       import org.springframework.beans.factory.annotation.Autowired;
+       
+       public class StudentServiceImpl implements StudentService{
+           @Autowired
+           private StudentDAO studentDAO;
+           
+           public StudentVO readStudent(String id) throws Exception{
+               return studentDAO.read(id);
+           }
+           public void addStudent(StudentVO student) throws Exception{
+               studentDAO.add(student);
+           }
+       }
+       ```
+
+     - **✅ < context:component-scan /> 설정 시 java 파일에 @Component를 설정해야 함**
+
+       ```xml
+       <!-- context:component-scan 설정 시 bean에 대한 context:annotation-config 설정이 필요 없다. -->
+       <!-- 대신 java 파일에 @Component를 설정해서 해당 클래스가 컴포넌트라는 것을 알려줘야 한다.-->
+       
+       <context:component-scan base-package="org.kpu.di.persistence"></context:component-scan>
+       <context:component-scan base-package="org.kpu.di.service"></context:component-scan>
+       ```
+
+       ```java
+       // <context:component-scan/> 설정 시 StudentDAOImpl.java 설정
+       package org.kpu.di.persistence;
+       import java.util.HashMap;
+       import java.util.Map;
+       import org.kpu.di.domain.StudentVO;
+       import org.springframework.stereotype.Component;
+       
+       @Component
+       public class StudentDAOImpl implements StudentDAO{
+           private Map<String, StudentVO> storage = new HashMap<String, StudentVO>();
+           
+           public StudentVO read(String id) throws Exception{
+               return storage.get(id);
+           }
+           public void add(StudentVO student) throws Exception{
+               storage.put(student.getId(), student);
+           }
+       }
+       ```
+
+       ```java
+       // <context:component-scan/> 설정 시 StudentServiceImpl.java 설정
+       package org.kpu.di.service;
+       import org.kpu.di.domain.StudentVO;
+       import org.kpu.di.persistence.StudentDAO;
+       import org.springframework.beans.factory.annotation.Autowired;
+       import org.springframework.stereotype.Component;
+       
+       @Component
+       public class StudentServiceImpl implements StudentService{
+           @Autowired
+           private StudentDAO studentDAO;
+           
+           public StudentVO readStudent(String id) throws Exception{
+               return studentDAO.read(id);
+           }
+           public void addStudent(StudentVO student) throws Exception{
+               studentDAO.add(student);
+           }
+       }
+       ```
+
+       <br> 
 
 3. **Java 기반 설정**
 
    - 자바 클래스에 **@Configuration Annotation**, 메서드에 **@Bean Annotation** 사용<br> 하여 Bean을 등록
-
- 
+     - **Configuration** : 빈 설정 메타 정보를 담고 있는 클래스 선언
+     - **Bean** : 클래스 내의 메서드를 정의하여 빈 객체 정의 시 선언
+   - 자바 코드로 빈을 설정하며, xml 파일을 사용하지 않는다.
+     - 직접 의존 객체를 주입해야 한다.
+   - 하나의 클래스 내에 복수의 빈 등록 가능
+   - **TypeSafe**, **Refactoring**에 매우 적합하다.
+   - 속성 명이나 클래스 명이 틀렸을 경우 컴파일 에러 발생
+   - **Container 생성 클래스** : AnnotationConfigApplicationContext
+   
+   ```java
+   // JavaConfig.java 파일 설정
+   
+   package org.kpu.di.config;
+   
+   import org.kpu.di.persistence.*;
+   import org.kpu.di.service.*;
+   import org.springframework.context.annotation.Bean;
+   import org.springframework.context.annotation.Configuration;
+   
+   // @Configuration Annotation 설정
+   // 빈 설정 메타 정보를 담고 있는 클래스 선언
+   @Configuration
+   public class JavaConfig{
+       // @Bean Annotation 설정
+       // 클래스 내의 메서드 정의
+       // 빈객체 정의 시 선언한다.
+       // xml 파일을 설정할 필요가 없다.
+       @Bean
+       public MemberDAO memberDAO(){
+           return new MemberDAOImpl();
+       }
+       
+       // @Bean Annotation 설정
+       // 클래스 내의 메서드 정의
+       // 빈객체 정의 시 선언한다.
+       // xml 파일을 설정할 필요가 없다.
+       // Bean name을 지정해서 다른 java 파일에서 생성자가 호출되도록 id를 만들어준다.
+       @Bean(name="service")
+       public MemberService memberService(){
+           return new MemberServiceImpl(memberDAO());
+       }
+   }
+   ```
+   
+   ```java
+   package org.kpu.di.main;
+   
+   import org.kpu.di.config.JavaConfig; // JavaConfig 파일 임포트
+   import org.kpu.di.domain.StudentVO;
+   import org.kpu.di.service.MemberService;
+   import org.springframework.context.ApplicationContext;
+   import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+   
+   public class MemberSampleMain{
+       private static ApplicationContext ctx = null;
+       public static void main(String[] args) throws Exception{
+           System.out.println("안녕 DI-JavaConfig");
+           
+           ctx = new AnnotationConfigApplicationContext(JavaConfig.class);
+           MemberService memberService = ctx.getBean("service", MemberService.class);
+           
+           StudentVO vo = new StudentVO();
+           vo.setId("kanadara");
+           
+           memberService.addMember(vo);
+           
+           StudentVO member = memberService.readMember("kanadara");
+           System.out.println(member);
+       }
+   }
+   ```
+   
+   <br> 
 
 ### **📌 역전 제어(IoC, Inversion of Control)**
 
@@ -202,32 +394,49 @@
 
   - **✅ ApplicationContext(org.springframework.context.ApplicationContext)**
 
-    - BeanFactory Container의 기능을 확장한 컨테이너
-      - BeanFactory 인터페이스를 상속받은 하위 인터페이스로 확장되었다.
-      - Internationalization, AOP, Transaction Management 기능 추가
-    - 일반적인 Spring Container
-    - XML 파일로부터 설정 정보를 활용하고 가장 많이 사용된다.
-    - 만들어지는 객체가 ApplicationContext로 변환된다.
+    - **BeanFactory Container**의 기능을 확장한 컨테이너
+      
+      - **BeanFactory** 인터페이스를 상속받은 하위 인터페이스로 확장되었다.
+      - **Internationalization**, **AOP**, **Transaction Management** 기능 추가
+      
+    - Bean 정의 파일 주요 스키마를 **ApplicationContext.xml**에 등록해야 한다.
 
+      | 스키마 명칭 | 스키마 파일        | URL             | 의미                         |
+      | :---------: | ------------------ | --------------- | ---------------------------- |
+      |  **bean**   | spring-beans.xsd   | /schema/beans   | bean(컴포넌트) 설정          |
+      | **context** | spring-context.xsd | /schema/context | bean 검색 &  Annotation 설정 |
+      |  **lang**   | spring-lang.xsd    | /schema/lang    | Script 언어 사용시 설정      |
+      |   **aop**   | spring-aop.xsd     | /schema/aop     | AOP 설정                     |
+      |   **tx**    | spring-tx.xsd      | /schema/tx      | 트랜잭션 설정                |
+      |   **mvc**   | spring-mvc.xsd     | /schema/mvc     | Spring MVC 설정              |
+    
+      
+    
+    - 일반적인 Spring Container
+    
+    - XML 파일로부터 설정 정보를 활용하고 가장 많이 사용된다.
+    
+    - 만들어지는 객체가 ApplicationContext로 변환된다.
+    
     ```java
     import org.springframework.context.support.ClassPathXmlApplicationContext;
     
     ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-    MyBean myBean = (MyBean)context.getBean("myBean");
+    MyBean myBean = (MyBean)context.getBean("myBean"); 
     ```
     
-<br> 
+    <br> 
     
-- **✅ WebApplicationContext(org.springframework.web.context.support.XmlWebApplicationContext)**
+  - **✅ WebApplicationContext(org.springframework.web.context.support.XmlWebApplicationContext)**
   
-  - 웹 애플리케이션을 위한 **ApplicationContext**
-    
+    - 웹 애플리케이션을 위한 **ApplicationContext**
+  
     - ApplicationContext에 MVC 패턴을 사용할 때 사용된다.
-    
+  
     - XML 파일로부터 설정 정보를 활용하고 가장 많이 사용된다.
-    
+  
     - **web.xml**에서 **ContextLoaderListener**, **DispatcherServlet**을 사용하여 **ApplicationContext** 생성
-    
+  
       ```xml
       <context-param>
       	<param-name>contextConfigLocation</param-name>
@@ -255,11 +464,11 @@
           <url-pattern>/</url-pattern>
       </servlet-mapping>
       ```
-    
+  
       
-    
+  
     - **WebApplicationContext (WAC)**
-      
+  
       1. **ContextLoaderListener에 의해 생성되는 WAC**
          - 웹 애플리케이션 전체에서 사용할 WAC 객체 생성
          - **root-context.xml** 파일에 설정한다.
@@ -272,6 +481,54 @@
 ### **📌 Spring Bean**
 
 > **Spring Container가 관리하는 객체를 의미**
+
+<br> 
+
+### **📌 Bean 객체의 Scope**
+
+- **singleton** : 기본 설정, 컨테이너 당 하나의 빈 객체만 생성
+
+- **prototype** : 빈 요청 떄마다 빈 객체 생성
+
+- **WebApplicationContext**에만 적용되는 Scope
+
+  - **request** : 각 요청용으로 하나의 빈 객체 생성
+  - **session** : 각 세션용으로 하나의 빈 객체 생성
+  - **application** : 서블릿 컨텍스트 생성 시 빈 객체 생성 
+
+  ```xml
+  <!-- applicationContext.xml 설정 -->
+  <bean id="memberDAO" class="org.kpu.di.persistence.MemberDAOImpl"
+  	scope="singleton">
+  </bean>
+  
+  <bean id="memberService" class="org.kpu.di.service.MemberServiceImpl">
+  	<property name="memberDAO" ref = "memberDAO"/>
+  </bean>
+  ```
+
+  <br> 
+
+### **📌 Bean 객체의 Lifecycle**
+
+- 초기화(Initialization) - 이용(use) - 종료(Destruction)
+
+```java
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+public class MyBeanImpl implements LifeBean, InitializingBean, DisposableBean{
+    @Override
+    public void afterPropertiesSet() throws Exception{
+        ...
+    }
+    
+    @Override
+    public void destroy() throws Exception{
+        ...
+    }
+}
+```
 
 
 
