@@ -7,6 +7,7 @@
 ### **:computer: 현재 PC 환경**
 
 - STS4 4.9.0 RELEASE
+- JavaSE-1.8 use
 - MySQL 8.0.23
 - MySQL DB 명 : spring
 - MySQL spring DB 스키마 명 : springdb
@@ -176,7 +177,42 @@
 
 ### **📌 Spring JDBC 프로젝트 만들기**
 
+1. **Project 만들기**
 
+![1](https://user-images.githubusercontent.com/55940552/113386594-8ee2ca00-93c5-11eb-8482-7459d826285f.PNG) 
+
+<br> 
+
+2. **POM.xml 설정**
+
+```xml
+<!-- jdbc 5.2.12 버전 설정-->
+<dependency>
+	<groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>5.2.12.RELEASE</version>
+</dependency>
+
+<!-- dbcp 1.4 설정 -->
+<dependency>
+	<groupId>commons-dbcp</groupId>
+    <artifactId>commons-dbcp</artifactId>
+    <version>1.4</version>
+</dependency>
+
+<!-- mysql connector 설정 -->
+<dependency>
+	<groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.22</version>
+</dependency>
+```
+
+<br> 
+
+3. src/main/resources/applicationContext.xml 생성 및 네임스페이스 추가
+
+![2](https://user-images.githubusercontent.com/55940552/113386975-51cb0780-93c6-11eb-8168-0adca72073a5.PNG) 
 
 <br> 
 
