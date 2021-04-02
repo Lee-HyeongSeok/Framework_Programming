@@ -38,7 +38,14 @@
     - org.kpu.test 패키지를 이용한 JUnit 단위 모듈 테스트
   - [📃 <u>4주차 강의 내용 정리</u>](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/4%EC%A3%BC%EC%B0%A8/%EC%8A%A4%ED%94%84%EB%A7%81%20JDBC.md)<br> 
 
-  
+- **5주차[Spring MVC]**
+
+  - Spring MVC 기본 개념 이해
+  - Spring MVC 아키텍처 이해
+  - Presentation Layer 동작 방식, Controller 구현
+  - REST 아키텍처 이해
+  - 예외 처리 방식 이해
+  - [📃 5주차 강의 내용 정리](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/5%EC%A3%BC%EC%B0%A8/Spring%20MVC.md)<br> 
 
 <br> 
 
