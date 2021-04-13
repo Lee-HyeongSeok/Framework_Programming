@@ -400,7 +400,79 @@
 </bean>
 ```
 
+<br> 
 
+### **:pushpin: REST Controller Response Message [HTTP Message : GET 방식]**
+
+- **Get 방식**으로 클라이언트로부터 URL 요청을 받았을 때 - **json 응답**
+
+  - **MemberRestController.java 내부 readMember() 메서드**
+
+  ```java
+  @RestController
+  @RequestMapping("/member/rest")
+  public class MemberRestController {
+  
+  	@Autowired(required=true)
+      private MemberService memberService;
+  	
+  	private static final Logger logger = LoggerFactory.getLogger(MemberRestController.class);
+  	
+      // ResponseEntity 애노테이션을 사용
+      // 응답 메시지 형식 지정 가능 
+      // 요청 메소드 GET으로 지정
+      @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+      public ResponseEntity<StudentVO> readMember(@PathVariable String id) throws Exception {
+      	StudentVO student = memberService.readMember(id);
+      	
+  		logger.info(" /member/rest/{id} REST-API GET method called. then readMember method executed.");
+  		HttpHeaders headers = new HttpHeaders();
+          // HTTP 응답 메시지 설정
+          // HTTP 응답 메시지 타입 설정 : URL 요청에 대한 메시지 내용을 json 형태로 변환(키, 값) 쌍
+  		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+  		headers.set("My-Header", "MyHeaderValue");
+  		return new ResponseEntity<StudentVO>(student, headers, HttpStatus.OK);
+      }
+  }
+  
+  ```
+
+   ![post](https://user-images.githubusercontent.com/55940552/114511899-756a3980-9c73-11eb-84a6-80f95767d992.PNG) 
+
+- **GET 방식**으로 클라이언트로부터 URL 요청을 받았을 때 - **xml 응답**
+
+  - **MemberRestController.java 내부 readMember() 메서드**
+
+  ```java
+  @RestController
+  @RequestMapping("/member/rest")
+  public class MemberRestController {
+  
+  	@Autowired(required=true)
+      private MemberService memberService;
+  	
+  	private static final Logger logger = LoggerFactory.getLogger(MemberRestController.class);
+  	
+      // ResponseEntity 애노테이션을 사용
+      // 응답 메시지 형식 지정 가능 
+      // 요청 메소드 POST으로 지정
+      @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+      public ResponseEntity<StudentVO> readMember(@PathVariable String id) throws Exception {
+      	StudentVO student = memberService.readMember(id);
+      	
+  		logger.info(" /member/rest/{id} REST-API GET method called. then readMember method executed.");
+  		HttpHeaders headers = new HttpHeaders();
+          // HTTP 응답 메시지 설정
+          // HTTP 응답 메시지 타입 설정 : URL 요청에 대한 메시지 내용을 xml 형태로 변환
+  		headers.setContentType(new MediaType("application", "xml", Charset.forName("UTF-8")));
+  		headers.set("My-Header", "MyHeaderValue");
+  		return new ResponseEntity<StudentVO>(student, headers, HttpStatus.OK);
+      }
+  }
+  
+  ```
+
+  ![get](https://user-images.githubusercontent.com/55940552/114511894-74390c80-9c73-11eb-87d2-82257ed214e8.PNG) 
 
 ### **:pushpin: Spring 디렉터리 구조**
 
