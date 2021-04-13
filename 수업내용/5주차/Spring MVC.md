@@ -1,3 +1,5 @@
+
+
 ## **🎈 Spring MVC**
 
 ***
@@ -157,8 +159,10 @@
       <artifactId>hibernate-validator</artifactId>
       <version>6.1.2.Final</version>
   </dependency>
-```
-  
+  ```
+
+
+
   <br> 
 
 ### **:pushpin: WebApplicationContext 등록 설정(web.xml)**
@@ -195,15 +199,15 @@
       ```xml
       <context:component-scan base-package="패키지 명"/>
       ```
-
+    
     - 해당되는 Controller가 URL을 매핑시키기 위해 필요한 설정
-
+    
       ```xml
       <mvc:annotation-driven>
       	<!-- 패키지 내부에서 찾은 Bean(Controller)과 URL을 매핑-->
       </mvc:annotation-driven>
       ```
-
+    
     - DispatcherServlet이 Controller임을 인지해서 Spring Bean으로 등록한다.
 
 - **@RequestMapping 애노테이션** : 처리 할 URL을 명시한다.
