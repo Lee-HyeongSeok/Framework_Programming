@@ -53,7 +53,17 @@
   - 스프링과 MyBatis 연계 구조 이해
   - 스프링 단위 테스트 이해
   - [📃 6주차 강의 내용 정리 - MyBatis](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/6%EC%A3%BC%EC%B0%A8/6%EC%A3%BC%EC%B0%A8%20%EA%B0%95%EC%9D%98%EB%82%B4%EC%9A%A9%20%EC%A0%95%EB%A6%AC.md)
-  - [📃 6주차 강의 내용 정리 - 스프링 테스트](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/6%EC%A3%BC%EC%B0%A8/6%EC%A3%BC%EC%B0%A8%20%EA%B0%95%EC%9D%98%EB%82%B4%EC%9A%A9%20%EC%A0%95%EB%A6%AC%5B%EC%8A%A4%ED%94%84%EB%A7%81%20%ED%85%8C%EC%8A%A4%ED%8A%B8%5D.md)
+  - [📃 6주차 강의 내용 정리 - 스프링 테스트](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/6%EC%A3%BC%EC%B0%A8/6%EC%A3%BC%EC%B0%A8%20%EA%B0%95%EC%9D%98%EB%82%B4%EC%9A%A9%20%EC%A0%95%EB%A6%AC%5B%EC%8A%A4%ED%94%84%EB%A7%81%20%ED%85%8C%EC%8A%A4%ED%8A%B8%5D.md)<br> 
+  
+- **7주차[Spring AOP]**
+
+  - Aspect Oriented Programming 기본 개념
+  - xml 파일을 이용한 AOP 설정 방법
+  - Annotation을 이용한 AOP 설정 방법
+  - Java를 이용한 AOP 설정 방법
+  - [📃 7주차 강의 내용 정리](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/7%EC%A3%BC%EC%B0%A8/7%EC%A3%BC%EC%B0%A8%20%EA%B0%95%EC%9D%98%EB%82%B4%EC%9A%A9%20%EC%A0%95%EB%A6%AC.md)<br> 
+
+- **8주차[Spring Transaction]**
 
 <br> 
 
