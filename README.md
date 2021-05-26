@@ -65,6 +65,15 @@
 
 - **8주차[Spring Transaction]**
 
+  - 스프링 트랜잭션 개념
+  - 스프링 트랜잭션 정의 정보
+  - 스프링 트랜잭션 처리방식 2가지
+    - 선언적
+    - 명시적
+  - [📃 8주차 강의 내용 정리](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/8%EC%A3%BC%EC%B0%A8/8%EC%A3%BC%EC%B0%A8%20%EA%B0%95%EC%9D%98%EB%82%B4%EC%9A%A9%20%EC%A0%95%EB%A6%AC.md)<br> 
+
+- **9주차[Spring Security]**
+
 <br> 
 
 ***
