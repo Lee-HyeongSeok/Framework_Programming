@@ -74,6 +74,14 @@
 
 - **9주차[Spring Security]**
 
+  - 인터셉터 개념
+  - 필터 개념
+  - AOP 개념
+  - 필터와 인터셉터의 차이
+  - AOP와 인터셉터의 차이
+  - HandlerInterceptor
+  - Interceptor 설정
+
 <br> 
 
 ***
