@@ -81,6 +81,9 @@
   - AOP와 인터셉터의 차이
   - HandlerInterceptor
   - Interceptor 설정
+  - spring security 처리 구조
+  - spring security 설정
+  - [📃 9주차 강의 내용 정리](https://github.com/Lee-HyeongSeok/Framework_Programming/blob/master/%EC%88%98%EC%97%85%EB%82%B4%EC%9A%A9/9%EC%A3%BC%EC%B0%A8/Spring%20Security.md) 
 
 <br> 
 
